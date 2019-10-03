@@ -1,6 +1,6 @@
 # dotfiles
 
-This is my experimenting with dotfiles for machine configuration.
+This is me experimenting with dotfiles for machine configuration.
 
 ## Installation
 
