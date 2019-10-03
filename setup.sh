@@ -3,14 +3,12 @@ set -e
 set -u
 
 ## printing ##
-
 # colors 
 RCol='\033[0m'
 Gre='\033[0;32m'
 Red='\033[0;31m'
 Yel='\033[0;33m'
 
-#functions
 function gecho {
   echo "${Gre}[message] $1${RCol}"
 }
@@ -49,6 +47,7 @@ function linkdotfile {
     yecho "$file found - do you want to overwrite with a new link?" >&2
     read -p "Overwrite (y/n)?" CONT
     if [ "$CONT" = "y" ]; then
+      yecho "Linking $file..."
       ln -sfn ~/.dotfiles/$file ~/$file
     else
       yecho "Skipping linking $file..."
