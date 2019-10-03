@@ -78,6 +78,11 @@ else
   brew update
 fi
 
+# link config files 
+linkdotfile .gitconfig
+linkdotfile .gitignore_global
+linkdotfile .zshrc
+
 # install zshell
 install_brew zsh
 
@@ -90,11 +95,6 @@ fi
 brew cask install macdown
 brew cask install visual-studio-code 
 brew cask install sourcetree
-
-# link config files 
-linkdotfile .gitconfig
-linkdotfile .gitignore_global
-linkdotfile .zshrc
 
 yecho "run the following to change shell to zsh... :" >&2
 echo "  chsh -s /bin/zsh "
