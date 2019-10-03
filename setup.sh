@@ -2,12 +2,15 @@
 set -e
 set -u
 
+## printing ##
+
+# colors 
 RCol='\033[0m'
 Gre='\033[0;32m'
 Red='\033[0;31m'
 Yel='\033[0;33m'
 
-## printing functions ##
+#functions
 function gecho {
   echo "${Gre}[message] $1${RCol}"
 }
@@ -20,7 +23,6 @@ function wecho {
   # red, but don't exit 1
   echo "${Red}[error] $1${RCol}"
 }
-
 
 function recho {
   echo "${Red}[error] $1${RCol}"
@@ -61,57 +63,18 @@ check_preq gcc
 check_preq brew
 check_preq "command -v ~/anaconda/bin/conda"
 
-# install Homebrew main programs
-install_brew ag
-install_brew tmux
-install_brew nvim
+# install Homebrew dependencies
 install_brew zsh
-install_brew lesspipe
-install_brew joe
-install_brew libgit2
 
-yecho "linking prezto files..." >&2
-zsh install_prezto.zsh
-
-# installing futurama quotes
-if [ ! -e ~/.futurama ]; then
-  yecho ".futurama not found, downloading..." >&2
-  curl -s https://raw.githubusercontent.com/vsbuffalo/good-news-everyone/master/futurama.txt 2> /dev/null | \
-    awk '{print $0} END{print "total quotes: "NR > "/dev/stderr"}' > ~/.futurama
-else
-  gecho ".futurama found, ignoring..." >&2
-fi
-
-# link over .gitconfig
+# link 
 linkdotfile .gitconfig
 linkdotfile .gitattributes
-
-# link over .latexmkrc for latexmk settings
-linkdotfile .latexmkrc
-
-# link over .tmux.conf
-linkdotfile .tmux.conf
-
-# create Python setup
-linkdotfile .ipython
-linkdotfile .ptpython
-linkdotfile .condarc
-
-# link NeoVim settings
-linkdotfile .config
-
-# create a Rprofile
-linkdotfile .Rprofile
-
-# create zsh completion
-linkdotfile .zsh-completions
+linkdotfile .zshrc
 
 # create a global Git ignore file
 if [ ! -e ~/.global_ignore ]; then
     yecho "~/.global_ignore not found, curling from Github..." >&2
     curl \
-      https://raw.githubusercontent.com/github/gitignore/master/Global/Emacs.gitignore \
-      https://raw.githubusercontent.com/github/gitignore/master/Global/Vim.gitignore \
       https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore \
     > ~/.global_ignore 2> /dev/null
     git config --global core.excludesfile ~/.global_ignore && 
@@ -119,16 +82,6 @@ if [ ! -e ~/.global_ignore ]; then
 else
     gecho "~/.global_ignore found, ignoring..." >&2
 fi
-
-## install nosetests and stuff
-#pip3 install nose 2> /dev/null
-#pip3 install yanc 2> /dev/null
-#pip3 install joe 2> /dev/null
-#linkdotfile .noserc
-
-# install some R packages
-gecho "installing basic R and Bioconductor packages..." >&2
-Rscript ~/dotfiles/install_rpkgs.r
 
 yecho "run the following to change shell to zsh... :" >&2
 echo "  chsh -s /bin/zsh "
