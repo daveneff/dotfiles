@@ -100,7 +100,9 @@ install_cask visual-studio-code
 
 # install zsh
 gecho "3) Installing zsh and oh-my-zsh"
+
 install_brew zsh
+
 if [ ! -d "$HOME/.dotfiles/oh-my-zsh" ]; then 
   yecho "Installing oh-my-zsh" >&2
   ZSH="$HOME/.dotfiles/oh-my-zsh" sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
