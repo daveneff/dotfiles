@@ -1,0 +1,9 @@
+# Delete Xcode Derived Data
+nukedd () {
+    rm -rf ~/Library/Developer/Xcode/DerivedData/*
+}
+
+# Create a new directory and enter it
+mk () {
+  mkdir -p "$@" && cd "$@"
+}

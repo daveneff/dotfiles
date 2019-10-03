@@ -1,18 +1,19 @@
-## Paths ##
-export GEM_HOME=$HOME/.gem/bin
-export LOCAL_BIN=$HOME/bin
-# export GLOBAL_BIN=/usr/local/bin
-export PATH=$PATH:$LOCAL_BIN:$GEM_HOME
+# configure shell
+DOTFILES_HOME="$HOME/.dotfiles"
+CONFIGS_HOME="$DOTFILES_HOME/zsh"
+source "$CONFIGS_HOME/.exports"
+source "$CONFIGS_HOME/.aliases"
+source "$CONFIGS_HOME/.functions"
 
-## Oh-My-Zshell Config ##
-# themes: https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# configure oh-my-zsh
+# more at https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="avit"    
-export ZSH="$HOME/.dotfiles/oh-my-zsh"
 
-## PLUGINS ##
 plugins=(
   git 
   z
 )
 
+# set source after configuring
+export ZSH="$DOTFILES_HOME/oh-my-zsh"
 source $ZSH/oh-my-zsh.sh 

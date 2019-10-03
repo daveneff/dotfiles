@@ -1,0 +1,9 @@
+# main bins
+export LOCAL_BIN=$HOME/bin
+export GLOBAL_BIN="/usr/local/bin"
+
+# other tools
+export GEM_HOME=$HOME/.gem/bin
+
+# path
+export PATH=$PATH:$LOCAL_BIN:$GLOBAL_BIN:$GEM_HOME
