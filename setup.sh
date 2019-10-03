@@ -46,20 +46,24 @@ function install_cask {
   fi
 }
 
-# function for linking dotfiles
+# create symbolic links between home folder and .dotfiles
 function linkdotfile {
-  file="$1"
-  if [ ! -e ~/$file -a ! -L ~/$file ]; then
-      yecho "$file not found, creting new link..." >&2
-      ln -sfn ~/.dotfiles/$file ~/$file
+  FILE="$1"
+  LINK=$(find ~/.dotfiles/** -type f -name "$FILE")
+
+  [[ -z "$LINK" ]] && recho "Failed to find link for $FILE. Aborting..."
+
+  if [ ! -e ~/$FILE -a ! -L ~/$FILE ]; then
+      yecho "$FILE not found, creting new link..." >&2
+      ln -sfn $LINK ~/$FILE
   else
-    yecho "$file found - do you want to overwrite with a new symbolic link?" >&2
+    yecho "$FILE found - do you want to overwrite with a new symbolic link?" >&2
     read -p "Overwrite (y/n)?" CONT
     if [ "$CONT" = "y" ]; then
-      gecho "Linking $file..."
-      ln -sfn ~/.dotfiles/$file ~/$file
+      gecho "Linking $FILE to $LINK..."
+      ln -sfn $LINK ~/$FILE
     else
-      yecho "Skipping linking $file..."
+      yecho "Skipping linking $FILE..."
     fi
   fi
 }
