@@ -1,31 +1,24 @@
 [user]
-	name = Vince Buffalo
-	email = vsbuffaloAAAAAA@gmail.com
-[credential]
-	help = osxkeychain
-[push]
-	default = simple
+	name = Dave Neff
+	email = daveneffis@gmail.com
 [core]
-	editor = vim
-	excludesfile = /Users/vinceb/.global_ignore
-[color]
-	ui = true
-[alias]
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
-	unstage = reset HEAD --
-	last = log -1 HEAD
-  lol = log --graph --decorate --pretty=oneline --abbrev-commit
-  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-[http]
-	postBuffer = 524288000
-[filter "hawser"]
-	clean = git hawser clean %f
-	smudge = git hawser smudge %f
-	required = true
-[github]
-	user = vsbuffalo
-[diff "nb2md"]
-	textconv = nb2md
+	excludesfile = $HOME/.dotfiles/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustexitcode = true
+[merge]
+	tool = Kaleidoscope
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[diff]
+	tool = Kaleidoscope
