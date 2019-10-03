@@ -21,6 +21,6 @@ plugins=(
 ## Functions ##
 
 # Open a file in MacDown
-macdown() {
+function macdown {
     "$(mdfind kMDItemCFBundleIdentifier=com.uranusjr.macdown | head -n1)/Contents/SharedSupport/bin/macdown" $@
 }
