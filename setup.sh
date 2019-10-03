@@ -46,7 +46,7 @@ function linkdotfile {
       yecho "$file not found, creting new link..." >&2
       ln -sfn ~/.dotfiles/$file ~/$file
   else
-    gecho "$file found - do you want to overwrite with a new link?" >&2
+    yecho "$file found - do you want to overwrite with a new link?" >&2
     read -p "Overwrite (y/n)?" CONT
     if [ "$CONT" = "y" ]; then
       ln -sfn ~/.dotfiles/$file ~/$file
