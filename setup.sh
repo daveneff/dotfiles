@@ -78,8 +78,13 @@ else
   brew update
 fi
 
-# install tools
+# install zshell
 install_brew zsh
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then 
+  yecho "Installing oh-my-zsh" >&2
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+fi
 
 # install applications
 brew cask install macdown
@@ -88,19 +93,8 @@ brew cask install sourcetree
 
 # link config files 
 linkdotfile .gitconfig
+linkdotfile .gitignore_global
 linkdotfile .zshrc
-
-# create a global Git ignore file
-if [ ! -e ~/.global_ignore ]; then
-    yecho "~/.global_ignore not found, curling from Github..." >&2
-    curl \
-      https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore \
-    > ~/.global_ignore 2> /dev/null
-    git config --global core.excludesfile ~/.global_ignore && 
-      yecho "[message] adding ignore file to Git..." >&2
-else
-    gecho "~/.global_ignore found, ignoring..." >&2
-fi
 
 yecho "run the following to change shell to zsh... :" >&2
 echo "  chsh -s /bin/zsh "
