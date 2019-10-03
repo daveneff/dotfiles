@@ -43,10 +43,16 @@ function install_brew {
 function linkdotfile {
   file="$1"
   if [ ! -e ~/$file -a ! -L ~/$file ]; then
-      yecho "$file not found, linking..." >&2
-      ln -s ~/dotfiles/$file ~/$file
+      yecho "$file not found, creting new link..." >&2
+      ln -sfn ~/dotfiles/$file ~/$file
   else
-      gecho "$file found, ignoring..." >&2
+    gecho "$file found - do you want to overwrite with a new link?" >&2
+    read -p "Overwrite (y/n)?" CONT
+    if [ "$CONT" = "y" ]; then
+      ln -sfn ~/dotfiles/$file ~/$file
+    else
+      yecho "Skipping linking $file..."
+    fi
   fi
 }
 
@@ -55,46 +61,44 @@ function linkdotfile {
   recho "doesn't look like you're in dotfiles/" >&2
 
 ## install dependencies ##
+gecho "1) Install core dependencies."
 
 if needs_install xcode-select; then 
-  yecho "Installing XCode command line tools" >&2
+  yecho "Installing Xcode Command Line Tools" >&2
   xcode-select --install
 fi 
 
-# cocoapods
 if needs_install pod; then 
   yecho "Installing Cocoapods." >&2
-  gem install cocoapods --user-install
+  sudo gem install cocoapods
 fi 
 
-# homebrew
 if needs_install brew; then 
-  yecho "Installing Homebrew" >&2
+  yecho "Installing Homebrew and Cask" >&2
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   brew tap caskroom/cask
-  brew tap caskroom/versions
-else 
-  yecho "Updating Homebrew" >&2
-  brew update
 fi
 
+# install applications
+gecho "2) Install applications"
+
+brew cask install macdown
+brew cask install sourcetree
+brew cask install visual-studio-code 
+
+# install zsh
+gecho "3) Install zsh and oh-my-zsh"
+install_brew zsh
+if [ ! -d "$HOME/dotfiles/oh-my-zsh" ]; then 
+  yecho "Installing oh-my-zsh" >&2
+  ZSH="$HOME/dotfiles/oh-my-zsh" sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+fi  
+
 # link config files 
+gecho "4) Link configuration files"
+
 linkdotfile .gitconfig
 linkdotfile .gitignore_global
 linkdotfile .zshrc
 
-# install zshell
-install_brew zsh
-
-if [ ! -d "$HOME/.oh-my-zsh" ]; then 
-  yecho "Installing oh-my-zsh" >&2
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-fi
-
-# install applications
-brew cask install macdown
-brew cask install visual-studio-code 
-brew cask install sourcetree
-
-yecho "run the following to change shell to zsh... :" >&2
-echo "  chsh -s /bin/zsh "
+gecho "Setup complete ✅"
