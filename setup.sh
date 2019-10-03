@@ -31,12 +31,13 @@ function needs_install {
   false
 }
 
-# look for command line tool, if not install via homebrew
+# install command line tool with homebrew
 function install_brew {
   (command -v $1 > /dev/null  && yecho "$1 already installed, skipping") || 
     (yecho "$1 not found, installing via homebrew..." && brew install $1)
 }
 
+# install application with cask
 function install_cask {
   if ! brew cask info $1 &>/dev/null; then
     yecho "$1 not found, installing..." >&2
