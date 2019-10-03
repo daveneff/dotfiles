@@ -19,11 +19,6 @@ function yecho {
   echo "${Yel}[warning] $1${RCol}"
 }
 
-function wecho {
-  # red, but don't exit 1
-  echo "${Red}[error] $1${RCol}"
-}
-
 function recho {
   echo "${Red}[error] $1${RCol}"
   exit 1
@@ -31,10 +26,11 @@ function recho {
 
 ## install functions ##
 
-# check for pre-req, fail if not found
-function check_preq {
-  (command -v $1 > /dev/null  && gecho "$1 found...") || 
-    recho "$1 not found, install before proceeding."
+# checks if a tool needs to be installed
+function needs_install {
+  [[ $(command -v $1) == "" ]] && return 
+
+  false
 }
 
 # look for command line tool, if not install via homebrew
@@ -56,19 +52,42 @@ function linkdotfile {
 
 # are we in right directory?
 [[ $(basename $(pwd)) == "dotfiles" ]] || 
-  recho "doesn't look like you're in dotfiles/"
+  recho "doesn't look like you're in dotfiles/" >&2
 
-# check that the key pre-requisites are met:
-check_preq gcc
-check_preq brew
-check_preq "command -v ~/anaconda/bin/conda"
+## install dependencies ##
 
-# install Homebrew dependencies
+if needs_install xcode-select; then 
+  yecho "Installing XCode command line tools" >&2
+  xcode-select --install
+fi 
+
+# cocoapods
+if needs_install pod; then 
+  yecho "Installing Cocoapods." >&2
+  gem install cocoapods --user-install
+fi 
+
+# homebrew
+if needs_install brew; then 
+  yecho "Installing Homebrew" >&2
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew tap caskroom/cask
+  brew tap caskroom/versions
+else 
+  yecho "Updating Homebrew" >&2
+  brew update
+fi
+
+# install tools
 install_brew zsh
 
-# link 
+# install applications
+brew cask install macdown
+brew cask install visual-studio-code 
+brew cask install sourcetree
+
+# link config files 
 linkdotfile .gitconfig
-linkdotfile .gitattributes
 linkdotfile .zshrc
 
 # create a global Git ignore file
@@ -85,5 +104,3 @@ fi
 
 yecho "run the following to change shell to zsh... :" >&2
 echo "  chsh -s /bin/zsh "
-
-
