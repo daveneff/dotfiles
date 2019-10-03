@@ -7,7 +7,7 @@ export PATH=$PATH:$LOCAL_BIN:$GEM_HOME
 ## Oh-My-Zshell Config ##
 # themes: https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="avit"    
-export ZSH="$HOME/dotfiles/oh-my-zsh"
+export ZSH="$HOME/.dotfiles/oh-my-zsh"
 
 ## PLUGINS ##
 plugins=(

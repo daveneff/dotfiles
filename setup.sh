@@ -44,12 +44,12 @@ function linkdotfile {
   file="$1"
   if [ ! -e ~/$file -a ! -L ~/$file ]; then
       yecho "$file not found, creting new link..." >&2
-      ln -sfn ~/dotfiles/$file ~/$file
+      ln -sfn ~/.dotfiles/$file ~/$file
   else
     gecho "$file found - do you want to overwrite with a new link?" >&2
     read -p "Overwrite (y/n)?" CONT
     if [ "$CONT" = "y" ]; then
-      ln -sfn ~/dotfiles/$file ~/$file
+      ln -sfn ~/.dotfiles/$file ~/$file
     else
       yecho "Skipping linking $file..."
     fi
@@ -57,8 +57,8 @@ function linkdotfile {
 }
 
 # are we in right directory?
-[[ $(basename $(pwd)) == "dotfiles" ]] || 
-  recho "doesn't look like you're in dotfiles/" >&2
+[[ $(basename $(pwd)) == ".dotfiles" ]] || 
+  recho "doesn't look like you're in .dotfiles/" >&2
 
 ## install dependencies ##
 gecho "1) Install core dependencies."
@@ -89,9 +89,9 @@ brew cask install visual-studio-code
 # install zsh
 gecho "3) Install zsh and oh-my-zsh"
 install_brew zsh
-if [ ! -d "$HOME/dotfiles/oh-my-zsh" ]; then 
+if [ ! -d "$HOME/.dotfiles/oh-my-zsh" ]; then 
   yecho "Installing oh-my-zsh" >&2
-  ZSH="$HOME/dotfiles/oh-my-zsh" sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+  ZSH="$HOME/.dotfiles/oh-my-zsh" sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
 fi  
 
 # link config files 
