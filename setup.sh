@@ -33,8 +33,17 @@ function needs_install {
 
 # look for command line tool, if not install via homebrew
 function install_brew {
-  (command -v $1 > /dev/null  && gecho "$1 found...") || 
+  (command -v $1 > /dev/null  && yecho "$1 already installed, skipping") || 
     (yecho "$1 not found, installing via homebrew..." && brew install $1)
+}
+
+function install_cask {
+  if ! brew cask info $1 &>/dev/null; then
+    yecho "$1 not found, installing..." >&2
+    brew cask install $1
+  else
+    yecho "$1 already installed, skipping..." >&2
+  fi
 }
 
 # function for linking dotfiles
@@ -44,10 +53,10 @@ function linkdotfile {
       yecho "$file not found, creting new link..." >&2
       ln -sfn ~/.dotfiles/$file ~/$file
   else
-    yecho "$file found - do you want to overwrite with a new link?" >&2
+    yecho "$file found - do you want to overwrite with a new symbolic link?" >&2
     read -p "Overwrite (y/n)?" CONT
     if [ "$CONT" = "y" ]; then
-      yecho "Linking $file..."
+      gecho "Linking $file..."
       ln -sfn ~/.dotfiles/$file ~/$file
     else
       yecho "Skipping linking $file..."
@@ -60,7 +69,7 @@ function linkdotfile {
   recho "doesn't look like you're in .dotfiles/" >&2
 
 ## install dependencies ##
-gecho "1) Install core dependencies."
+gecho "1) Installing core dependencies."
 
 if needs_install xcode-select; then 
   yecho "Installing Xcode Command Line Tools" >&2
@@ -79,14 +88,14 @@ if needs_install brew; then
 fi
 
 # install applications
-gecho "2) Install applications"
+gecho "2) Installing applications"
 
-brew cask install macdown
-brew cask install sourcetree
-brew cask install visual-studio-code 
+install_cask macdown
+install_cask sourcetree
+install_cask visual-studio-code 
 
 # install zsh
-gecho "3) Install zsh and oh-my-zsh"
+gecho "3) Installing zsh and oh-my-zsh"
 install_brew zsh
 if [ ! -d "$HOME/.dotfiles/oh-my-zsh" ]; then 
   yecho "Installing oh-my-zsh" >&2
@@ -94,10 +103,10 @@ if [ ! -d "$HOME/.dotfiles/oh-my-zsh" ]; then
 fi  
 
 # link config files 
-gecho "4) Link configuration files"
+gecho "4) Linking configuration files"
 
 linkdotfile .gitconfig
 linkdotfile .gitignore_global
 linkdotfile .zshrc
 
-gecho "Setup complete ✅"
+gecho "Setup complete 🎉"
