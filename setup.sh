@@ -2,7 +2,7 @@
 set -e
 set -u
 
-# nstall locations
+# Install locations
 DOTFILES_HOME="$HOME/.dotfiles"
 
 ######################################
