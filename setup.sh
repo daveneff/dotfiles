@@ -88,6 +88,7 @@ fi
 gecho "2) Installing applications"
 
 CASKS=(
+  fastlane
   iterm2
   kaleidoscope
   macdown
