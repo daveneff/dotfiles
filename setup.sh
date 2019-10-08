@@ -88,7 +88,6 @@ fi
 gecho "2) Installing applications"
 
 CASKS=(
-  fastlane
   iterm2
   kaleidoscope
   macdown
@@ -108,7 +107,9 @@ PACKAGES=(
 brew install ${PACKAGES[@]}
 
 RUBY_GEMS=(
+    bundler
     cocoapods
+    fastlane
 )
 sudo gem install ${RUBY_GEMS[@]}
 
