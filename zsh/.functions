@@ -7,3 +7,8 @@ nukedd () {
 mk () {
   mkdir -p "$@" && cd "$@"
 }
+
+# Go go repos folder
+repos () {
+  cd ~/Desktop/repos
+}
