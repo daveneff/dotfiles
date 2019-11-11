@@ -1,3 +1,13 @@
+# Pod Install
+pi () {
+  pod install 
+}
+
+# Pod Install Repo Update
+piru () {
+  pod install --repo-update
+}
+
 # Delete Xcode Derived Data
 nukedd () {
     rm -rf ~/Library/Developer/Xcode/DerivedData/*
