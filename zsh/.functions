@@ -1,3 +1,34 @@
+
+###############################
+########### GENERAL ###########
+###############################
+
+# Go to desktop 
+desktop () {
+  cd ~/Desktop
+}
+
+# Create a new directory and enter it
+mk () {
+  mkdir -p "$@" && cd "$@"
+}
+
+# Make a branch
+mkbranch () {
+  local TICKET="$1_"
+  local NAME="$2"
+  git checkout -b dn/IOS-$TICKET$NAME
+}
+
+# Go go repos folder
+repos () {
+  cd ~/Desktop/repos
+}
+
+###############################
+############ SWIFT ############
+###############################
+
 # Pod Install
 pi () {
   pod install 
@@ -13,12 +44,18 @@ nukedd () {
     rm -rf ~/Library/Developer/Xcode/DerivedData/*
 }
 
-# Create a new directory and enter it
-mk () {
-  mkdir -p "$@" && cd "$@"
+# Upload dSYMS to Crashlytics
+uploadDsyms() {
+  local PATH_TO_DSYMS_ZIP="$1"
+  ~/Desktop/repos/ios-client/Pods/FirebaseCrashlytics/upload-symbols -gsp ~/Desktop/repos/ios-client/FrameIO/GoogleService-Info.plist -p ios $PATH_TO_DSYMS_ZIP
 }
 
-# Go go repos folder
-repos () {
-  cd ~/Desktop/repos
+###############################
+############ MISC. ############
+###############################
+
+## Python / Jupyter Notesbooks
+gojupyter () {
+  cd /Users/daveneff/Desktop/side/python-ds-course
+  jupyter notebook
 }
