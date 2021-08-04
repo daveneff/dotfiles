@@ -25,9 +25,28 @@ repos () {
   cd ~/Desktop/repos
 }
 
+func openios () {
+  open ~/Desktop/repos/ios-client/FrameIO.xcworkspace
+}
+
+func xcode() {
+  local FILE_TO_OPEN="$1"
+  open -a "Xcode" $FILE_TO_OPEN
+}
+
 ###############################
 ############ SWIFT ############
 ###############################
+
+# Bundle Exec Pod Install
+bepi () {
+  bundle exec pod install 
+}
+
+# Bundle Install
+bi () {
+  bundle install
+}
 
 # Pod Install
 pi () {
@@ -37,6 +56,11 @@ pi () {
 # Pod Install Repo Update
 piru () {
   pod install --repo-update
+}
+
+pu () {
+  local POD_NAME="$1"
+  pod update $POD_NAME
 }
 
 # Delete Xcode Derived Data
