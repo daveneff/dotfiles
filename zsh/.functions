@@ -38,11 +38,6 @@ func xcode() {
 ############ SWIFT ############
 ###############################
 
-# Bundle Exec Pod Install
-bepi () {
-  bundle exec pod install 
-}
-
 # Bundle Install
 bi () {
   bundle install
@@ -50,12 +45,12 @@ bi () {
 
 # Pod Install
 pi () {
-  pod install 
+  bundle exec pod install 
 }
 
 # Pod Install Repo Update
 piru () {
-  pod install --repo-update
+  bundle exec pod install --repo-update
 }
 
 pu () {
@@ -72,6 +67,14 @@ nukedd () {
 uploadDsyms() {
   local PATH_TO_DSYMS_ZIP="$1"
   ~/Desktop/repos/ios-client/Pods/FirebaseCrashlytics/upload-symbols -gsp ~/Desktop/repos/ios-client/FrameIO/GoogleService-Info.plist -p ios $PATH_TO_DSYMS_ZIP
+}
+
+###############################
+############# GIT #############
+###############################
+
+prunedevelop () {
+  git branch --merged develop | egrep -v '^\s*\*?\s*develop$' | xargs git branch -d
 }
 
 ###############################
