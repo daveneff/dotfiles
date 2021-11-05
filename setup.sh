@@ -88,21 +88,19 @@ fi
 gecho "2) Installing applications"
 
 CASKS=(
+  fork
   iterm2
-  kaleidoscope
   macdown
-  sourcetree
   reveal
   visual-studio-code
 )
-brew cask install ${CASKS[@]}
+brew install --cask ${CASKS[@]}
 
 # install command line tools
 gecho "3) Installing command line tools"
 
 PACKAGES=(
   python3
-  zsh
 )
 brew install ${PACKAGES[@]}
 

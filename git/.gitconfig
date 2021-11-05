@@ -22,3 +22,5 @@
 	prompt = false
 [diff]
 	tool = Kaleidoscope
+[pull]
+	rebase = false
