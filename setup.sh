@@ -90,6 +90,7 @@ gecho "2) Installing applications"
 CASKS=(
   fork
   iterm2
+  kaleidoscope
   macdown
   reveal
   visual-studio-code
