@@ -81,7 +81,7 @@ fi
 
 if needs_install brew; then 
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  brew tap caskroom/cask
+  brew tap homebrew/cask
 fi
 
 # install applications
