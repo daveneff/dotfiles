@@ -77,6 +77,14 @@ prunedevelop () {
   git branch --merged develop | egrep -v '^\s*\*?\s*develop$' | xargs git branch -d
 }
 
+prunemain () {
+  git branch --merged main | egrep -v '^\s*\*?\s*main$' | xargs git branch -d
+}
+
+prunemaster () {
+  git branch --merged master | egrep -v '^\s*\*?\s*master$' | xargs git branch -d
+}
+
 ###############################
 ############ MISC. ############
 ###############################
