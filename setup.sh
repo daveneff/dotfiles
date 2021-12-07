@@ -101,6 +101,7 @@ brew install --cask ${CASKS[@]}
 gecho "3) Installing command line tools"
 
 PACKAGES=(
+  git-lfs
   python3
 )
 brew install ${PACKAGES[@]}
