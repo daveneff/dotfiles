@@ -80,7 +80,7 @@ if needs_install xcode-select; then
 fi 
 
 if needs_install brew; then 
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   brew tap homebrew/cask
 fi
 
@@ -101,6 +101,7 @@ brew install --cask ${CASKS[@]}
 gecho "3) Installing command line tools"
 
 PACKAGES=(
+  git-lfs
   python3
 )
 brew install ${PACKAGES[@]}
