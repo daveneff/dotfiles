@@ -73,13 +73,15 @@ uploadDsyms() {
 ############# GIT #############
 ###############################
 
-# Deletes local merged branches, excluding `main`, `master`, and `develop`.
+# Deletes local merged branches, given a target branch. 
+# EXAMPLE: `gitclean main` will delete all local branches merged to `main`.
 # WARNING: This will also delete non-merged branches which have no changes from the target branch.
 gitclean () {
-  git branch --merged |                # get a list of all merged branches
-  egrep -iv '(main|master|develop)' |  # exclude main branches
-  tr -d '* ' |                         # trim '* ' which is output in front of branch names
-  xargs git branch -d                  # delete the branch
+  local TARGET_BRANCH=$1
+  git branch --merged $TARGET_BRANCH |                  # list of all merged branches to target
+  egrep -iv "(${TARGET_BRANCH}|develop|main|master)" |  # exclude target branch + other important branches
+  tr -d '* ' |                                          # trim '* ' which is outputs in front of branch names
+  xargs git branch -d                                   # delete the branch
 }
 
 ###############################
