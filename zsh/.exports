@@ -1,9 +1,10 @@
 # main bins
-export LOCAL_BIN=$HOME/bin
+export LOCAL_BIN="$HOME/bin"
 export GLOBAL_BIN="/usr/local/bin"
 
 # other tools
-export GEM_HOME=$HOME/.gem/bin
+export RUBY_HOME="/opt/homebrew/opt/ruby/bin"
+export GEM_HOME="/opt/homebrew/lib/ruby/gems/3.0.0/bin"
 
 # path
-export PATH=$PATH:$LOCAL_BIN:$GLOBAL_BIN:$GEM_HOME
+export PATH=$PATH:$LOCAL_BIN:$GLOBAL_BIN:$GEM_HOME:$RUBY_HOME

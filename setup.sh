@@ -88,10 +88,13 @@ fi
 gecho "2) Installing applications"
 
 CASKS=(
+  figma
   fork
   iterm2
   kaleidoscope
   macdown
+  notion
+  proxyman
   reveal
   visual-studio-code
 )
@@ -100,18 +103,21 @@ brew install --cask ${CASKS[@]}
 # install command line tools
 gecho "3) Installing command line tools"
 
+# first, install latest ruby version locally
+brew install ruby
+
+RUBY_GEMS=(
+    bundler
+    fastlane
+)
+gem install ${RUBY_GEMS[@]}
+
 PACKAGES=(
+  cocoapods
   git-lfs
   python3
 )
 brew install ${PACKAGES[@]}
-
-RUBY_GEMS=(
-    bundler
-    cocoapods
-    fastlane
-)
-sudo gem install ${RUBY_GEMS[@]}
 
 # install oh-my-zsh
 if [ ! -d "$DOTFILES_HOME/oh-my-zsh" ]; then 
