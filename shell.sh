@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 set -u
 
 DOTFILES_HOME="$HOME/.dotfiles"
@@ -15,7 +14,7 @@ function recho { echo "${Red}[error] $1${RCol}"; exit 1; }
 
 function linkdotfile {
   FILE="$1"
-  DEST="${2:-~/$FILE}"
+  DEST="${2:-$HOME/$FILE}"
   LINK=$(find $DOTFILES_HOME -type f -name "$FILE")
 
   [[ -z "$LINK" ]] && recho "Failed to find link for $FILE. Aborting..."
@@ -39,12 +38,13 @@ function linkdotfile {
 
 gecho "1) Installing core dependencies"
 
-if ! command -v xcode-select &>/dev/null; then
+if ! xcode-select -p &>/dev/null; then
   xcode-select --install
 fi
 
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 gecho "2) Installing shell tools"
@@ -65,7 +65,7 @@ brew install --cask font-meslo-lg-nerd-font
 gecho "3) Linking config files"
 
 linkdotfile .zshrc
-mkdir -p ~/.config
-ln -sfn $DOTFILES_HOME/starship.toml ~/.config/starship.toml
+mkdir -p $HOME/.config
+ln -sfn $DOTFILES_HOME/starship.toml $HOME/.config/starship.toml
 
 gecho "Shell setup complete 🎉"
