@@ -34,12 +34,12 @@ function linkdotfile {
   fi
 }
 
-[[ $(basename $(pwd)) == ".dotfiles" ]] || recho "doesn't look like you're in .dotfiles/"
-
 gecho "1) Installing core dependencies"
 
 if ! xcode-select -p &>/dev/null; then
   xcode-select --install
+  yecho "Xcode Command Line Tools installation started. Complete the dialog, then press any key to continue..."
+  read -n 1 -s
 fi
 
 if ! command -v brew &>/dev/null; then

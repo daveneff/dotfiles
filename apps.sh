@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 set -u
 
 RCol='\033[0m'
@@ -9,6 +8,7 @@ function gecho { echo "${Gre}[message] $1${RCol}"; }
 
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 gecho "1) Installing apps"
