@@ -69,3 +69,4 @@ mkdir -p $HOME/.config
 ln -sfn $DOTFILES_HOME/starship.toml $HOME/.config/starship.toml
 
 gecho "Shell setup complete 🎉"
+yecho "Remember to set your terminal font to 'MesloLGS Nerd Font' for icons to render correctly."
