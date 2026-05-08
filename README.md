@@ -1,23 +1,17 @@
 # dotfiles
 
-This is me experimenting with dotfiles for machine configuration.
+## Shell setup
 
-## Installation
+Run this on a new machine to clone the repo and set up the shell:
 
-For a new OS X development environment
+```bash
+git clone git@github.com:daveneff/dotfiles.git ~/.dotfiles && ~/.dotfiles/shell.sh
+```
 
-1) If Xcode isn't already installed, install developer command line tools:
+This installs shell tools (zinit, starship, eza, fzf, rbenv, etc.) and symlinks `.zshrc` and `starship.toml`.
 
-   `xcode-select --install`
+## App install
 
-2) Clone this repo and run the installer:
-   ```
-    git clone https://github.com/daveneff/dotfiles.git ~/.dotfiles
-    cd ~/.dotfiles
-    sh setup.sh
-   ```
-    This script does the following:
-   - Installs any missing tools 
-   - Installs preferred applications
-   - Installs zsh and oh-my-zsh
-   - Creates symlinks to config files
+```bash
+~/.dotfiles/apps.sh
+```

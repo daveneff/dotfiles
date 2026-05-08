@@ -1,7 +1,0 @@
-[user]
-	name = Dave Neff
-	email = # insert email here!
-[pull]
-	rebase = false
-[core]
-	editor = code --wait
