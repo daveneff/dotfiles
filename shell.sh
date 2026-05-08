@@ -16,7 +16,7 @@ function recho { echo "${Red}[error] $1${RCol}"; exit 1; }
 function linkdotfile {
   FILE="$1"
   DEST="${2:-~/$FILE}"
-  LINK=$(find $DOTFILES_HOME/** -type f -name "$FILE")
+  LINK=$(find $DOTFILES_HOME -type f -name "$FILE")
 
   [[ -z "$LINK" ]] && recho "Failed to find link for $FILE. Aborting..."
 
